@@ -2,5 +2,5 @@
 
 public interface IWeatherClient
 {
-    Task<Models.Weather> GetWeatherAsync(string city, string? unit);
+    Task<Models.Weather> GetWeatherAsync(string city, string unit = "metric");
 }

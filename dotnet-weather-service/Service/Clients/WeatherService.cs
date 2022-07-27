@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Service.Infrastructure;
@@ -11,25 +12,28 @@ public class WeatherClient : IWeatherClient
     private readonly WeatherSettings _settings;
     private readonly HttpClient _client;
 
-    public WeatherClient(IHttpClientFactory factory, IOptions<WeatherSettings> weatherSettings)
+    public WeatherClient(IHttpClientFactory factory, WeatherSettings weatherSettings)
     {
         _client = factory.CreateClient("weather");
-        _settings = weatherSettings.Value;
+        _settings = weatherSettings;
     }
 
-    public async Task<Weather> GetWeatherAsync(string city, string? unit)
+    public async Task<Weather> GetWeatherAsync(string city, string unit = "metric")
     {
         var query = new Dictionary<string, string>()
         {
+            ["q"] = city,
             ["appid"] = _settings.ApiKey,
-            ["city"] = city,
             ["lang"] = "en",
-            ["unit"] = unit ?? "metric",
+            ["unit"] = unit,
         };
 
-        string uri = QueryHelpers.AddQueryString("/weather", query);
+        string uri = QueryHelpers.AddQueryString("/data/2.5/weather", query);
 
-        return await _client.GetFromJsonAsync<Weather>(uri);
+        var res = await _client.GetAsync(uri);
+        string content = await res.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<Weather>(content);
     }
 }
 

@@ -11,9 +11,4 @@ public class WeatherSettings
     /// Base url of api openweathermap
     /// </summary>
     public string BaseUrl { get; set; }
-
-    /// <summary>
-    /// Version of API
-    /// </summary>
-    public string ApiVersion { get; set; }
 }

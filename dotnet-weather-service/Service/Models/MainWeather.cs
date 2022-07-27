@@ -9,7 +9,7 @@ public class MainWeather
     public double Pressure { get; set; }
 
     [JsonPropertyName("humidity")]
-    public string Humidity { get; set; }
+    public long Humidity { get; set; }
 
     [JsonPropertyName("temp_min")]
     public double TemperatureMin { get; set; }

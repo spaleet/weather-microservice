@@ -11,9 +11,9 @@ public class SystemWeather
     [JsonPropertyName("sunset")]
     public long Sunset { get; set; }
 
-    [JsonPropertyName("sunriseDateTime")]
+    [JsonIgnore]
     public DateTime SunriseDateTime => DateTimeOffset.FromUnixTimeSeconds(Sunrise).DateTime;
 
-    [JsonPropertyName("sunsetDateTime")]
+    [JsonIgnore]
     public DateTime SunsetDateTime => DateTimeOffset.FromUnixTimeSeconds(Sunset).DateTime;
 }

@@ -5,7 +5,7 @@ public class BaseWeather
     [JsonPropertyName("dt")]
     public long UnixDateTime { get; set; }
 
-    [JsonPropertyName("dateTime")]
+    [JsonIgnore]
     public DateTime DateTime => DateTimeOffset.FromUnixTimeSeconds(UnixDateTime).DateTime;
 
     [JsonPropertyName("main")]
