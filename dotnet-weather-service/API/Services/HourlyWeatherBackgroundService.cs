@@ -16,7 +16,6 @@ public class HourlyWeatherBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-       _logger.LogInformation("The temperature inC");
         while (await _timer.WaitForNextTickAsync(stoppingToken)
                 && !stoppingToken.IsCancellationRequested)
         {
@@ -24,7 +23,7 @@ public class HourlyWeatherBackgroundService : BackgroundService
 
             var weather = await _weather.GetWeatherAsync(city);
 
-            _logger.LogInformation("The temperature in {city}, {country} is currently {temperature} °C", city, weather.SystemWeather.Country, weather.Main.Temperature);
+            _logger.LogInformation("The temperature in {city}, {country} is currently {temperature} °C", city, weather.SystemWeather.Country, weather.Main.CelsiusCurrent);
 
             await Task.Delay(1000, stoppingToken);
         }
