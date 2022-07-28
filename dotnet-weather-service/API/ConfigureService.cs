@@ -12,8 +12,6 @@ public static class ConfigureService
 
         services.AddSingleton(weatherSettings);
 
-        //services.Configure<WeatherSettings>(config.GetSection("WeatherSettings"));
-
         services.AddHttpClient("weather", opt =>
         {
             opt.BaseAddress = new Uri(weatherSettings.BaseUrl);

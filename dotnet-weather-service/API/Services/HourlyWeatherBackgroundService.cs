@@ -4,22 +4,27 @@ namespace API.Services;
 
 public class HourlyWeatherBackgroundService : BackgroundService
 {
-    private readonly PeriodicTimer _timer = new(TimeSpan.FromHours(1));
+    private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(1));
     private readonly IWeatherClient _weather;
+    private readonly ILogger<HourlyWeatherBackgroundService> _logger;
 
-    public HourlyWeatherBackgroundService(IWeatherClient weather)
+    public HourlyWeatherBackgroundService(IWeatherClient weather, ILogger<HourlyWeatherBackgroundService> logger)
     {
         _weather = weather;
+        _logger = logger;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+       _logger.LogInformation("The temperature inC");
         while (await _timer.WaitForNextTickAsync(stoppingToken)
                 && !stoppingToken.IsCancellationRequested)
         {
-            var weather = await _weather.GetWeatherAsync("chicago");
+            string city = "chicago";
 
-            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(weather));
+            var weather = await _weather.GetWeatherAsync(city);
+
+            _logger.LogInformation("The temperature in {city}, {country} is currently {temperature} °C", city, weather.SystemWeather.Country, weather.Main.Temperature);
 
             await Task.Delay(1000, stoppingToken);
         }
