@@ -1,4 +1,4 @@
-﻿using Service.Clients;
+﻿using Service.Intefaces;
 
 namespace API.Services;
 

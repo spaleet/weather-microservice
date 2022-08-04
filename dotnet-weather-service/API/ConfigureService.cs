@@ -1,6 +1,7 @@
 ﻿using API.Services;
-using Service.Clients;
+using Service.Implementations;
 using Service.Infrastructure;
+using Service.Intefaces;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

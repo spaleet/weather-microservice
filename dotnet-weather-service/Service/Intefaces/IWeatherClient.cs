@@ -1,4 +1,4 @@
-﻿namespace Service.Clients;
+﻿namespace Service.Intefaces;
 
 public interface IWeatherClient
 {

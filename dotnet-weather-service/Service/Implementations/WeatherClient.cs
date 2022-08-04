@@ -1,13 +1,12 @@
-﻿using System.Net.Http.Json;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Service.Infrastructure;
 using Service.Models;
 
-namespace Service.Clients;
+namespace Service.Implementations;
 
-public class WeatherClient : IWeatherClient
+public class WeatherClient : Intefaces.IWeatherClient
 {
     private readonly WeatherSettings _settings;
     private readonly HttpClient _client;
