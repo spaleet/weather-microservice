@@ -2,5 +2,5 @@
 
 public interface IKafkaService
 {
-    Task ProduceAsync(Models.Weather weather);
+    Task ProduceAsync(string city, Models.Weather weather);
 }
