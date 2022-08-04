@@ -12,10 +12,13 @@ public class WeatherClient : IWeatherClient
     private readonly WeatherSettings _settings;
     private readonly HttpClient _client;
 
-    public WeatherClient(IHttpClientFactory factory, WeatherSettings weatherSettings)
+    public WeatherClient(IOptions<WeatherSettings> weatherSettings)
     {
-        _client = factory.CreateClient("weather");
-        _settings = weatherSettings;
+        _settings = weatherSettings.Value;
+        _client = new HttpClient
+        {
+            BaseAddress = new Uri(_settings.BaseUrl)
+        };
     }
 
     public async Task<Weather> GetWeatherAsync(string city, string unit = "metric")
@@ -28,7 +31,7 @@ public class WeatherClient : IWeatherClient
             ["unit"] = unit,
         };
 
-        string uri = QueryHelpers.AddQueryString("/data/2.5/weather", query);
+        string uri = QueryHelpers.AddQueryString("weather", query);
 
         var res = await _client.GetAsync(uri);
         string content = await res.Content.ReadAsStringAsync();

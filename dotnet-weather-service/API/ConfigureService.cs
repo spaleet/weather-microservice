@@ -8,14 +8,7 @@ public static class ConfigureService
 {
     public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration config)
     {
-        var weatherSettings = config.GetSection("WeatherSettings").Get<WeatherSettings>();
-
-        services.AddSingleton(weatherSettings);
-        services.AddHttpClient("weather", opt =>
-        {
-            opt.BaseAddress = new Uri(weatherSettings.BaseUrl);
-        });
-
+        services.Configure<WeatherSettings>(config.GetSection("WeatherSettings"));
         services.Configure<KafkaSettings>(config.GetSection("KafkaSettings"));
 
         services.AddTransient<IWeatherClient, WeatherClient>();
