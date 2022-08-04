@@ -11,11 +11,12 @@ public static class ConfigureService
         var weatherSettings = config.GetSection("WeatherSettings").Get<WeatherSettings>();
 
         services.AddSingleton(weatherSettings);
-
         services.AddHttpClient("weather", opt =>
         {
             opt.BaseAddress = new Uri(weatherSettings.BaseUrl);
         });
+
+        services.Configure<KafkaSettings>(config.GetSection("KafkaSettings"));
 
         services.AddTransient<IWeatherClient, WeatherClient>();
         services.AddHostedService<HourlyWeatherBackgroundService>();
