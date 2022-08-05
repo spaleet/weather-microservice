@@ -12,6 +12,11 @@ public static class ConfigureService
         services.Configure<WeatherSettings>(config.GetSection("WeatherSettings"));
         services.Configure<KafkaSettings>(config.GetSection("KafkaSettings"));
 
+        services.AddHttpClient("weather", opt =>
+        {
+            opt.BaseAddress = new Uri(config["WeatherSettings:BaseUrl"]);
+        });
+
         services.AddTransient<IWeatherClient, WeatherClient>();
         services.AddTransient<IKafkaService, KafkaService>();
         services.AddHostedService<HourlyWeatherBackgroundService>();

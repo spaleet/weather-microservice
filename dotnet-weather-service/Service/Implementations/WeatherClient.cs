@@ -11,13 +11,10 @@ public class WeatherClient : Intefaces.IWeatherClient
     private readonly WeatherSettings _settings;
     private readonly HttpClient _client;
 
-    public WeatherClient(IOptions<WeatherSettings> weatherSettings)
+    public WeatherClient(IOptions<WeatherSettings> weatherSettings, IHttpClientFactory factory)
     {
         _settings = weatherSettings.Value;
-        _client = new HttpClient
-        {
-            BaseAddress = new Uri(_settings.BaseUrl)
-        };
+        _client = factory.CreateClient("weather");
     }
 
     public async Task<Weather> GetWeatherAsync(string city, string unit = "metric")
