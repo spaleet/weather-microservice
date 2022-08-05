@@ -6,12 +6,12 @@ public class HourlyWeatherBackgroundService : BackgroundService
 {
     private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(1));
     private readonly IWeatherClient _weather;
-    private readonly ILogger<HourlyWeatherBackgroundService> _logger;
+    private readonly IKafkaService _messager;
 
-    public HourlyWeatherBackgroundService(IWeatherClient weather, ILogger<HourlyWeatherBackgroundService> logger)
+    public HourlyWeatherBackgroundService(IWeatherClient weather, IKafkaService messager)
     {
         _weather = weather;
-        _logger = logger;
+        _messager = messager;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -23,9 +23,7 @@ public class HourlyWeatherBackgroundService : BackgroundService
 
             var weather = await _weather.GetWeatherAsync(city);
 
-            _logger.LogInformation("The temperature in {city}, {country} is currently {temperature} °C", city, weather.SystemWeather.Country, weather.Main.CelsiusCurrent);
-
-            await Task.Delay(1000, stoppingToken);
+            await _messager.ProduceAsync(city, weather);
         }
     }
 }

@@ -13,6 +13,7 @@ public static class ConfigureService
         services.Configure<KafkaSettings>(config.GetSection("KafkaSettings"));
 
         services.AddTransient<IWeatherClient, WeatherClient>();
+        services.AddTransient<IKafkaService, KafkaService>();
         services.AddHostedService<HourlyWeatherBackgroundService>();
 
         return services;
