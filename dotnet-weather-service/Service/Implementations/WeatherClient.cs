@@ -1,8 +1,5 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.WebUtilities;
+﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using Service.Models.Settings;
-using Service.Models;
 
 namespace Service.Implementations;
 

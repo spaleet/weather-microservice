@@ -1,8 +1,6 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Service.Models.Settings;
-using Service.Models;
 using Polly;
 using Polly.Retry;
 
