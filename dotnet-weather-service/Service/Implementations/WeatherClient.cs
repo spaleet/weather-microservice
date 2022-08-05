@@ -30,6 +30,8 @@ public class WeatherClient : Intefaces.IWeatherClient
         string uri = QueryHelpers.AddQueryString("weather", query);
 
         var res = await _client.GetAsync(uri);
+        res.EnsureSuccessStatusCode();
+
         string content = await res.Content.ReadAsStringAsync();
 
         return JsonSerializer.Deserialize<Weather>(content);
