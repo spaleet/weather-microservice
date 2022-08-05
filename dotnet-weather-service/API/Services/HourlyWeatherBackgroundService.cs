@@ -1,4 +1,4 @@
-﻿using Service.Intefaces;
+﻿using Service.Interfaces;
 
 namespace API.Services;
 

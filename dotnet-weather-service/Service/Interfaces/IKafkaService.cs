@@ -1,4 +1,4 @@
-﻿namespace Service.Intefaces;
+﻿namespace Service.Interfaces;
 
 public interface IKafkaService
 {

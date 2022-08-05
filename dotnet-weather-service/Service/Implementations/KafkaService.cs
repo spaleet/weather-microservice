@@ -1,14 +1,14 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Service.Infrastructure;
+using Service.Models.Settings;
 using Service.Models;
 using Polly;
 using Polly.Retry;
 
 namespace Service.Implementations;
 
-public class KafkaService : Intefaces.IKafkaService
+public class KafkaService : Interfaces.IKafkaService
 {
     private readonly ILogger<KafkaService> _logger;
     private readonly IProducer<string, string> _producer;

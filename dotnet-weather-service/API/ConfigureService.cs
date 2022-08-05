@@ -1,7 +1,7 @@
 ﻿using API.Services;
 using Service.Implementations;
-using Service.Infrastructure;
-using Service.Intefaces;
+using Service.Models.Settings;
+using Service.Interfaces;
 using Polly;
 using Polly.Extensions.Http;
 using Serilog;
