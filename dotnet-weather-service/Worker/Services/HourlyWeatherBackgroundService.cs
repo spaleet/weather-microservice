@@ -4,7 +4,7 @@ namespace API.Services;
 
 public class HourlyWeatherBackgroundService : BackgroundService
 {
-    private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(1));
+    private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(15));
     private readonly IWeatherClient _weather;
     private readonly IKafkaService _messager;
 
