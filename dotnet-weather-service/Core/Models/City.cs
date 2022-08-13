@@ -1,4 +1,4 @@
-﻿namespace Service.Models;
+﻿namespace Core.Models;
 
 public class City
 {

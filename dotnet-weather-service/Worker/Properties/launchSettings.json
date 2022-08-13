@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "API": {
+    "Worker": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7131;http://localhost:5131",

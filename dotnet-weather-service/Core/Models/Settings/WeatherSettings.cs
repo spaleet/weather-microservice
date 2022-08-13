@@ -1,4 +1,4 @@
-﻿namespace Service.Models.Settings;
+﻿namespace Core.Models.Settings;
 
 public class WeatherSettings
 {

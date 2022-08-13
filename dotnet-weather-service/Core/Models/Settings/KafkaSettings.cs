@@ -1,6 +1,6 @@
-﻿namespace Service.Models.Settings;
+﻿namespace Core.Models.Settings;
 
-public class KafkaSettings
+public record KafkaSettings
 {
-    public string BootstrapServers { get; set; }
+    public string BootstrapServers { get; init; }
 }

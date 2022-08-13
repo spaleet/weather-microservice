@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 
-namespace Service.Services;
+namespace Core.Services;
 
 public interface IWeatherClient
 {

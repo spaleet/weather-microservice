@@ -1,4 +1,4 @@
-﻿using Service.Interfaces;
+﻿using Core.Services;
 
 namespace Worker;
 

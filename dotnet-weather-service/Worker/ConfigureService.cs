@@ -1,9 +1,9 @@
-﻿using Service.Models.Settings;
+﻿using Core.Models.Settings;
 using Polly;
 using Polly.Extensions.Http;
 using Serilog;
 using Worker;
-using Service.Services;
+using Core.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

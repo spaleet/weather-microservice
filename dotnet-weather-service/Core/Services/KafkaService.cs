@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
 
-namespace Service.Services;
+namespace Core.Services;
 
 public interface IKafkaService
 {
