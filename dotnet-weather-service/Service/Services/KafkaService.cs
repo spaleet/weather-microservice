@@ -4,9 +4,14 @@ using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
 
-namespace Service.Implementations;
+namespace Service.Services;
 
-public class KafkaService : Interfaces.IKafkaService
+public interface IKafkaService
+{
+    Task ProduceAsync(string city, Weather weather);
+}
+
+public class KafkaService : IKafkaService
 {
     private readonly ILogger<KafkaService> _logger;
     private readonly IProducer<string, string> _producer;

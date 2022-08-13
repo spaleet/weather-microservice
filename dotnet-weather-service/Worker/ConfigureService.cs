@@ -1,10 +1,9 @@
-﻿using Service.Implementations;
-using Service.Models.Settings;
-using Service.Interfaces;
+﻿using Service.Models.Settings;
 using Polly;
 using Polly.Extensions.Http;
 using Serilog;
 using Worker;
+using Service.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 
-namespace Service.Implementations;
+namespace Service.Services;
 
-public class WeatherClient : Interfaces.IWeatherClient
+public interface IWeatherClient
+{
+    Task<Weather> GetWeatherAsync(string city, string unit = "metric");
+}
+public class WeatherClient : IWeatherClient
 {
     private readonly WeatherSettings _settings;
     private readonly HttpClient _client;
