@@ -1,14 +1,14 @@
 ﻿using Service.Interfaces;
 
-namespace API.Services;
+namespace Worker;
 
-public class HourlyWeatherBackgroundService : BackgroundService
+public class HourlyWeatherWorker : BackgroundService
 {
     private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(15));
     private readonly IWeatherClient _weather;
     private readonly IKafkaService _messager;
 
-    public HourlyWeatherBackgroundService(IWeatherClient weather, IKafkaService messager)
+    public HourlyWeatherWorker(IWeatherClient weather, IKafkaService messager)
     {
         _weather = weather;
         _messager = messager;

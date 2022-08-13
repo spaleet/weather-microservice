@@ -1,10 +1,10 @@
-﻿using API.Services;
-using Service.Implementations;
+﻿using Service.Implementations;
 using Service.Models.Settings;
 using Service.Interfaces;
 using Polly;
 using Polly.Extensions.Http;
 using Serilog;
+using Worker;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +22,7 @@ public static class ConfigureService
 
         services.AddTransient<IWeatherClient, WeatherClient>();
         services.AddTransient<IKafkaService, KafkaService>();
-        services.AddHostedService<HourlyWeatherBackgroundService>();
+        services.AddHostedService<HourlyWeatherWorker>();
 
         return services;
     }
