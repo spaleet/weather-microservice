@@ -1,12 +1,12 @@
 using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, lc) =>
-            lc.ReadFrom.Configuration(context.Configuration));
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
+    {
+        services.ConfigureServices(hostContext.Configuration);
+    })
+    .UseSerilog((context, lc) => lc.ReadFrom.Configuration(context.Configuration))
+    .Build();
 
-builder.Services.ConfigureServices(builder.Configuration);
-
-var app = builder.Build();
-
-app.Run();
+await host.RunAsync();
