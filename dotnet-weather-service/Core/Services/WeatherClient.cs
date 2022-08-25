@@ -12,14 +12,16 @@ public class WeatherClient : IWeatherClient
     private readonly WeatherSettings _settings;
     private readonly HttpClient _client;
 
-    public WeatherClient(IOptions<WeatherSettings> weatherSettings, IHttpClientFactory factory)
+    public WeatherClient(IOptions<WeatherSettings> weatherSettings, HttpClient client)
     {
         _settings = weatherSettings.Value;
-        _client = factory.CreateClient("weather");
+        _client = client;
     }
 
     public async Task<Weather> GetWeatherAsync(string city, string unit = "metric")
     {
+        ArgumentNullException.ThrowIfNull(city, nameof(city));
+
         var query = new Dictionary<string, string>()
         {
             ["q"] = city,

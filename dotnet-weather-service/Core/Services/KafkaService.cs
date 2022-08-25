@@ -30,13 +30,17 @@ public class KafkaService : IKafkaService
 
         _producer = new ProducerBuilder<string, string>(config).Build();
 
-        _retry = Policy.Handle<KafkaException>()
+        _retry = Policy.Handle<Exception>()
                        .WaitAndRetryAsync(
                             retryCount: MAX_RETRIES,
                             sleepDurationProvider: times => TimeSpan.FromSeconds(times),
                             onRetry: (err, sleepDuration, attemptNumber, context) =>
                             {
-                                _logger.LogError("ERROR : {message}. Retrying in {sleepDuration}. {attemptNumber} / {max_retries}", err.Message, sleepDuration, attemptNumber, MAX_RETRIES);
+                                _logger.LogError("ERROR : {message}. Retrying in {sleepDuration}. {attemptNumber} / {max_retries}",
+                                                 err.Message,
+                                                 sleepDuration,
+                                                 attemptNumber,
+                                                 MAX_RETRIES);
                             });
     }
 
