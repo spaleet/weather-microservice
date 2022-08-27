@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
+﻿using System.Text.Json;
+using Core.Interfaces;
+using Core.Models;
+using Core.Settings;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 
-namespace Core.Services;
+namespace Infrastructure.Clients;
 
-public interface IWeatherClient
-{
-    Task<Weather> GetWeatherAsync(string city, string unit = "metric");
-}
 public class WeatherClient : IWeatherClient
 {
     private readonly WeatherSettings _settings;
@@ -40,4 +40,3 @@ public class WeatherClient : IWeatherClient
         return JsonSerializer.Deserialize<Weather>(content);
     }
 }
-

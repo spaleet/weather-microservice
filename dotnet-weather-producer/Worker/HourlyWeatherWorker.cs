@@ -1,4 +1,4 @@
-﻿using Core.Services;
+﻿using Core.Interfaces;
 
 namespace Worker;
 
@@ -6,9 +6,9 @@ public class HourlyWeatherWorker : BackgroundService
 {
     private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(15));
     private readonly IWeatherClient _weather;
-    private readonly IKafkaService _messager;
+    private readonly IPublisher _messager;
 
-    public HourlyWeatherWorker(IWeatherClient weather, IKafkaService messager)
+    public HourlyWeatherWorker(IWeatherClient weather, IPublisher messager)
     {
         _weather = weather;
         _messager = messager;

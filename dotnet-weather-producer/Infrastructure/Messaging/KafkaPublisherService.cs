@@ -1,25 +1,23 @@
 ﻿using Confluent.Kafka;
+using Core.Interfaces;
+using Core.Models;
+using Core.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Polly;
 using Polly.Retry;
+using Polly;
 
-namespace Core.Services;
+namespace Infrastructure.Messaging;
 
-public interface IKafkaService
+public class KafkaPublisherService : IPublisher
 {
-    Task ProduceAsync(string city, Weather weather);
-}
-
-public class KafkaService : IKafkaService
-{
-    private readonly ILogger<KafkaService> _logger;
+    private readonly ILogger<KafkaPublisherService> _logger;
     private readonly IProducer<string, string> _producer;
 
     private const int MAX_RETRIES = 3;
     private readonly AsyncRetryPolicy _retry;
 
-    public KafkaService(ILogger<KafkaService> logger, IOptions<KafkaSettings> kafkaSettings)
+    public KafkaPublisherService(ILogger<KafkaPublisherService> logger, IOptions<KafkaSettings> kafkaSettings)
     {
         _logger = logger;
 

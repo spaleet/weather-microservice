@@ -3,7 +3,9 @@ using Polly;
 using Polly.Extensions.Http;
 using Serilog;
 using Worker;
-using Core.Services;
+using Core.Interfaces;
+using Infrastructure.Clients;
+using Infrastructure.Messaging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +21,7 @@ public static class ConfigureService
             opt.BaseAddress = new Uri(config["WeatherSettings:BaseUrl"]);
         }).AddPolicyHandler(GetRetryPolicy(3));
 
-        services.AddTransient<IKafkaService, KafkaService>();
+        services.AddTransient<IPublisher, KafkaPublisherService>();
         services.AddHostedService<HourlyWeatherWorker>();
 
         return services;
