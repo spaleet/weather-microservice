@@ -1,4 +1,5 @@
 const { Kafka } = require('kafkajs')
+const logger = require("./logger")
 
 const config = {
     topic: "weather_app",
@@ -19,7 +20,13 @@ const run = async () => {
 
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
-            console.log("message received : ", message.value.toString());
+
+            const messageData = {
+                key: message.key,
+                value: message.value.toString()
+            }
+
+            logger.info(`Message received : Key: ${messageData.key} - Value: ${messageData.value}`);
         },
     })
 }
