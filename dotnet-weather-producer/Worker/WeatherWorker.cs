@@ -2,13 +2,13 @@
 
 namespace Worker;
 
-public class HourlyWeatherWorker : BackgroundService
+public class WeatherWorker : BackgroundService
 {
-    private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(15));
+    private readonly PeriodicTimer _timer = new(TimeSpan.FromMinutes(5));
     private readonly IWeatherClient _weather;
     private readonly IPublisher _messager;
 
-    public HourlyWeatherWorker(IWeatherClient weather, IPublisher messager)
+    public WeatherWorker(IWeatherClient weather, IPublisher messager)
     {
         _weather = weather;
         _messager = messager;

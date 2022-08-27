@@ -9,7 +9,7 @@ using Infrastructure.Messaging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ConfigureService
+public static class ServiceRegistry
 {
     public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration config)
     {
@@ -22,7 +22,7 @@ public static class ConfigureService
         }).AddPolicyHandler(GetRetryPolicy(3));
 
         services.AddTransient<IPublisher, KafkaPublisherService>();
-        services.AddHostedService<HourlyWeatherWorker>();
+        services.AddHostedService<WeatherWorker>();
 
         return services;
     }

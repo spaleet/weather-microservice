@@ -6,7 +6,7 @@ public class Weather
     public long Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("dt")]
     public long UnixDateTime { get; set; }

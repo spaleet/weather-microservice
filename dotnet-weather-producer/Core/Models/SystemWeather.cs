@@ -3,7 +3,7 @@
 public class SystemWeather
 {
     [JsonPropertyName("country")]
-    public string Country { get; set; }
+    public string Country { get; set; } = string.Empty;
 
     [JsonPropertyName("sunrise")]
     public long Sunrise { get; set; }

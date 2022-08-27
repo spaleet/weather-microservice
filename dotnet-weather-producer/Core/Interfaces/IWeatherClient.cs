@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Options;
-
-namespace Core.Interfaces;
+﻿namespace Core.Interfaces;
 
 public interface IWeatherClient
 {

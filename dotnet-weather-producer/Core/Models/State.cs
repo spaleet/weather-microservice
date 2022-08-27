@@ -3,12 +3,12 @@
 public class State
 {
     [JsonPropertyName("main")]
-    public string MainWeather { get; set; }
+    public string MainWeather { get; set; } = string.Empty;
 
     [JsonPropertyName("description")]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    private string _icon;
+    private string _icon = string.Empty;
     [JsonPropertyName("icon")]
     public string Icon
     {
