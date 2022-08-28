@@ -6,12 +6,12 @@ public class WeatherWorker : BackgroundService
 {
     private readonly PeriodicTimer _timer = new(TimeSpan.FromMinutes(5));
     private readonly IWeatherClient _weather;
-    private readonly IPublisher _messager;
+    private readonly IPublisher _publisher;
 
     public WeatherWorker(IWeatherClient weather, IPublisher messager)
     {
         _weather = weather;
-        _messager = messager;
+        _publisher = messager;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -23,7 +23,7 @@ public class WeatherWorker : BackgroundService
 
             var weather = await _weather.GetWeatherAsync(city);
 
-            await _messager.ProduceAsync(city, weather);
+            await _publisher.PublishAsync(city, weather);
         }
     }
 }

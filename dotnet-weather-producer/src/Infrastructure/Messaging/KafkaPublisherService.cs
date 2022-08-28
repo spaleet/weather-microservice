@@ -42,7 +42,7 @@ public class KafkaPublisherService : IPublisher
                             });
     }
 
-    public async Task ProduceAsync(string city, Weather weather)
+    public async Task PublishAsync(string city, Weather weather)
     {
         await _retry.ExecuteAsync(async () =>
         {

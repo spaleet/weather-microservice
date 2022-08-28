@@ -2,5 +2,5 @@
 
 public interface IPublisher
 {
-    Task ProduceAsync(string city, Weather weather);
+    Task PublishAsync(string city, Weather weather);
 }
