@@ -20,7 +20,8 @@ public class WeatherClient : IWeatherClient
 
     public async Task<Weather> GetWeatherAsync(string city, string unit = "metric")
     {
-        ArgumentNullException.ThrowIfNull(city, nameof(city));
+        if (string.IsNullOrEmpty(city))
+            throw new ArgumentNullException(nameof(city));
 
         var query = new Dictionary<string, string>()
         {
