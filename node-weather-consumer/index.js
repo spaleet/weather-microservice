@@ -1,10 +1,7 @@
+const http = require('http');
 const { Kafka } = require('kafkajs')
+const config = require("./config")
 const logger = require("./logger")
-
-const config = {
-    topic: "weather_app",
-    host: "localhost:9092"
-}
 
 const kafka = new Kafka({
     clientId: "my-consumer",
@@ -32,3 +29,11 @@ const run = async () => {
 }
 
 run().catch(console.error)
+
+const server = http.createServer();
+
+const host = 'localhost';
+const port = 8080;
+server.listen(port, host, () => {
+    console.log(`Server is running on http://${host}:${port}`);
+});
