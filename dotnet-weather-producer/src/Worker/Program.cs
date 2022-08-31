@@ -1,17 +1,13 @@
 using Serilog;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("appsettings.json");
+builder.Configuration.AddUserSecrets<Program>();
 
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration(app =>
-    {
-        app.AddJsonFile("appsettings.json");
-        app.AddUserSecrets<Program>();
-    })
-    .ConfigureServices((hostContext, services) =>
-    {
-        services.ConfigureServices(hostContext.Configuration);
-    })
-    .UseSerilog((context, lc) => lc.ReadFrom.Configuration(context.Configuration))
-    .Build();
+builder.Services.ConfigureServices(builder.Configuration);
 
-await host.RunAsync();
+builder.Host.UseSerilog((context, lc) => lc.ReadFrom.Configuration(context.Configuration));
+
+var app = builder.Build();
+
+await app.RunAsync();
