@@ -13,6 +13,7 @@ public class KafkaPublisherService : IPublisher
 {
     private readonly ILogger<KafkaPublisherService> _logger;
     private readonly IProducer<string, string> _producer;
+    private readonly KafkaSettings _kafkaSettings;
 
     private const int MAX_RETRIES = 3;
     private readonly AsyncRetryPolicy _retry;
@@ -20,10 +21,11 @@ public class KafkaPublisherService : IPublisher
     public KafkaPublisherService(ILogger<KafkaPublisherService> logger, IOptions<KafkaSettings> kafkaSettings)
     {
         _logger = logger;
+        _kafkaSettings = kafkaSettings.Value;
 
         var config = new ProducerConfig
         {
-            BootstrapServers = kafkaSettings.Value.BootstrapServers
+            BootstrapServers = _kafkaSettings.BootstrapServers
         };
 
         _producer = new ProducerBuilder<string, string>(config).Build();
@@ -52,7 +54,7 @@ public class KafkaPublisherService : IPublisher
                 Value = string.Format("The temperature in {0}, {1} is currently {2} °C", city, weather.SystemWeather.Country, weather.Main.CelsiusCurrent)
             };
 
-            await _producer.ProduceAsync("weather_app", message);
+            await _producer.ProduceAsync(_kafkaSettings.Topic, message);
 
             _logger.LogInformation("The temperature in {city}, {country} is currently {temperature} °C", city, weather.SystemWeather.Country, weather.Main.CelsiusCurrent);
         });
