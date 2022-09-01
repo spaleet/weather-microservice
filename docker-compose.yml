@@ -28,18 +28,36 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     restart: always
 
+  producer:
+    container_name: producer
+    build:
+      context: ./dotnet-weather-producer/
+      dockerfile: src/Worker/Dockerfile
+    # build:
+    #   context: ./dotnet-weather-producer/src/Worker
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - "KafkaSettings:BootstrapServers=kafka:9092"
+      - "KafkaSettings:Topic=weather_topic"
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - 7001:80
+    restart: always
+    
   consumer:
     container_name: consumer
     build:
-      context: ./consumer
-      dockerfile: Dockerfile
+      context: ./node-weather-consumer
     ports:
       - 7002:8080
     volumes:
-      - ./consumer:/app
+      - ./data/logs:/app/logs
     environment:
       - KAFKA_HOST=kafka:9092
       - KAFKA_TOPIC=weather_topic
+    restart: always
     depends_on:
       - zookeeper
       - kafka
