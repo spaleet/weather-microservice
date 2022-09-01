@@ -1,19 +1,19 @@
 const http = require('http');
+require('dotenv').config();
 const { Kafka } = require('kafkajs')
-const config = require("./config")
 const logger = require("./logger")
 
 const kafka = new Kafka({
     clientId: "my-consumer",
-    brokers: [config.host]
+    brokers: [process.env.KAFKA_HOST]
 })
 
-const consumer = kafka.consumer({ groupId: `${config.topic}-group-1` })
+const consumer = kafka.consumer({ groupId: `${process.env.KAFKA_TOPIC}-group-1` })
 
 const run = async () => {
 
     await consumer.connect()
-    await consumer.subscribe({ topic: config.topic, fromBeginning: true })
+    await consumer.subscribe({ topic: process.env.KAFKA_TOPIC, fromBeginning: true })
 
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {

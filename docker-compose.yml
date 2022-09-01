@@ -27,3 +27,19 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     restart: always
+
+  consumer:
+    container_name: consumer
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    ports:
+      - 7002:8080
+    volumes:
+      - ./consumer:/app
+    environment:
+      - KAFKA_HOST=kafka:9092
+      - KAFKA_TOPIC=weather_topic
+    depends_on:
+      - zookeeper
+      - kafka
